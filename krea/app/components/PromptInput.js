@@ -5,6 +5,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 // Helper functions for localStorage management
 const MODIFY_HISTORY_KEY = 'modify_history';
@@ -135,16 +136,23 @@ export default function PromptInput({ onGenerate, currentFile }) {
           </div>
 
           {/* Grid icon */}
-          <Button
-            type="button"
-            variant="ghost"
-            size="icon"
-            className="h-full w-20 bg-zinc-800"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M3 3h7v7H3V3zm0 11h7v7H3v-7zm11-11h7v7h-7V3zm0 11h7v7h-7v-7z"/>
-            </svg>
-          </Button>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                className="h-full w-20 bg-zinc-800"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M3 3h7v7H3V3zm0 11h7v7H3v-7zm11-11h7v7h-7V3zm0 11h7v7h-7v-7z"/>
+                </svg>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Need inspiration? Try a preset</p>
+            </TooltipContent>
+          </Tooltip>
           
           <div className="flex flex-col h-full w-30">
             {/* Tab indicators - takes 1/5 of space */}

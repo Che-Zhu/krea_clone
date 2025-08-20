@@ -153,14 +153,16 @@ export default function PromptInput({ onGenerate, currentFile }) {
                 type="single"
                 variant="outline"
                 value={activeTab}
-                onValueChange={setActiveTab}
+                onValueChange={(value) => {
+                  if (value) setActiveTab(value);
+                }}
                 className="grid w-full grid-cols-2 h-8"
               >
                 <ToggleGroupItem 
                   value="1" 
                   variant="outline"
                   size="sm"
-                  className="text-xs font-medium h-6 px-2"
+                  className="text-xs font-medium h-6 px-2 data-[state=on]:bg-white data-[state=on]:text-black"
                 >
                   1
                 </ToggleGroupItem>
@@ -168,7 +170,7 @@ export default function PromptInput({ onGenerate, currentFile }) {
                   value="2" 
                   variant="outline"
                   size="sm"
-                  className="text-xs h-6 px-2"
+                  className="text-xs h-6 px-2 data-[state=on]:bg-white data-[state=on]:text-black"
                 >
                   2
                 </ToggleGroupItem>

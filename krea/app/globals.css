@@ -80,7 +80,7 @@
 }
 
 .dark {
-  --background: oklch(0.276 0.003 270.03); /* zinc-700 equivalent */
+  --background: oklch(0.176 0.003 270.03); /* zinc-800 equivalent */
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);

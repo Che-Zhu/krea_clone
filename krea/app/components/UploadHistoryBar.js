@@ -61,7 +61,7 @@ const UploadHistoryBar = ({ className = '', onFileSelect, onAddNew }) => {
   };
 
   return (
-    <div className={`flex flex-col w-16 bg-gray-900 p-2 space-y-2 overflow-y-auto overflow-x-hidden max-h-96 ${className} ml-2 rounded-sm`}>
+    <div className={`flex flex-col w-16 bg-zinc-900 p-2 space-y-2 overflow-hidden ${className} ml-2 rounded-sm`}>
       {/* Add new file button */}
       <Button
         variant="outline"
@@ -90,7 +90,7 @@ const UploadHistoryBar = ({ className = '', onFileSelect, onAddNew }) => {
           No files uploaded yet
         </div>
       ) : (
-        uploadedFiles.map((fileData) => (
+        uploadedFiles.slice(0, 6).map((fileData) => (
           <div
             key={fileData.id}
             onClick={() => handleFileClick(fileData)}

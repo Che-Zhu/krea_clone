@@ -22,7 +22,7 @@ export default function ModelSelect() {
   return (
     <HoverCard openDelay={0} closeDelay={100}>
       <HoverCardTrigger asChild>
-        <div className="group hover:bg-gray-600 bg-gray-800 flex items-center justify-between rounded-2xl px-6 py-4 text-left font-semibold text-white backdrop-blur-2xl cursor-pointer transition-colors">
+        <div className="group hover:bg-gray-600 bg-zinc-900 flex items-center justify-between rounded-2xl px-6 py-4 text-left font-semibold text-white backdrop-blur-2xl cursor-pointer transition-colors">
           <span className="text-base">{selectedModel ? selectedModel.name : "Models"}</span>
           <ChevronDown className="h-4 w-4 ml-2" />
         </div>

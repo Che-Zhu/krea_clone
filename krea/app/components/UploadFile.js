@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
+import { Button } from '@/components/ui/button';
 
 // Helper functions for localStorage management
 const STORAGE_KEY = 'uploaded_files_history';
@@ -131,11 +132,7 @@ export default function UploadFile({ onFileSelect }) {
           relative flex flex-col items-center justify-center
           w-full h-120 rounded-lg
           cursor-pointer transition-all duration-200
-          hover:bg-gray-700 hover:border-gray-500
-          ${isDragOver 
-            ? 'border-blue-500 bg-blue-900' 
-            : 'border-gray-600 bg-gray-800'
-          }
+          hover:bg-gray-700 hover:border-gray-500 bg-zinc-600
         `}
         style={{ height: '30rem' }}
       >
@@ -144,9 +141,12 @@ export default function UploadFile({ onFileSelect }) {
           <p className="text-center text-gray-300 mb-8 leading-relaxed">
             Rearrange objects in your scene, blend objects from multiple images, place characters, or expand edges.
           </p>
-          <button className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
+          <Button className="px-6 py-3 gap-2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 4v16m8-8H4"/>
+            </svg>
             Upload Image
-          </button>
+          </Button>
         </div>
       </div>
 

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Textarea } from '@/components/ui/textarea';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
+import { Button } from '@/components/ui/button';
 
 export default function PromptInput({ onGenerate }) {
   const [prompt, setPrompt] = useState('');
@@ -38,35 +39,40 @@ export default function PromptInput({ onGenerate }) {
           </div>
 
           {/* Grid icon */}
-            <button
-              type="button"
-              className="h-full w-20 flex items-center justify-center text-gray-400 hover:text-white transition-colors bg-zinc-800 rounded-lg"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M3 3h7v7H3V3zm0 11h7v7H3v-7zm11-11h7v7h-7V3zm0 11h7v7h-7v-7z"/>
-              </svg>
-          </button>
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            className="h-full w-20 bg-zinc-800"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M3 3h7v7H3V3zm0 11h7v7H3v-7zm11-11h7v7h-7V3zm0 11h7v7h-7v-7z"/>
+            </svg>
+          </Button>
           
           <div className="flex flex-col h-full w-30">
             {/* Tab indicators - takes 1/5 of space */}
-            <div className="flex-1 flex items-center justify-center w-full">
+            <div className="flex-none flex items-center justify-center w-full">
               <ToggleGroup
                 type="single"
+                variant="outline"
                 value={activeTab}
                 onValueChange={setActiveTab}
-                className="grid w-full grid-cols-2"
+                className="grid w-full grid-cols-2 h-8"
               >
                 <ToggleGroupItem 
                   value="1" 
                   variant="outline"
-                  className="text-xs font-medium"
+                  size="sm"
+                  className="text-xs font-medium h-6 px-2"
                 >
                   1
                 </ToggleGroupItem>
                 <ToggleGroupItem 
                   value="2" 
                   variant="outline"
-                  className="text-xs"
+                  size="sm"
+                  className="text-xs h-6 px-2"
                 >
                   2
                 </ToggleGroupItem>
@@ -74,17 +80,17 @@ export default function PromptInput({ onGenerate }) {
             </div>
             
             {/* Generate button - takes 4/5 of space */}
-            <div className="flex-[4] flex items-center justify-center w-full">
-              <button
+            <div className="flex-1 flex items-center justify-center w-full">
+              <Button
                 type="submit"
                 disabled={!prompt.trim()}
-                className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 w-full"
+                className="w-full h-full gap-2"
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 2L13.09 8.26L22 9L13.09 9.74L12 16L10.91 9.74L2 9L10.91 8.26L12 2Z"/>
                 </svg>
                 Generate
-              </button>
+              </Button>
             </div>
           </div>
         </form>

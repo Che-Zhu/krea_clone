@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react';
 
-export default function UploadFile() {
+export default function UploadFile({ onFileSelect }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [isDragOver, setIsDragOver] = useState(false);
   const fileInputRef = useRef(null);
@@ -11,6 +11,10 @@ export default function UploadFile() {
     if (file && file.type.startsWith('image/')) {
       setSelectedFile(file);
       console.log('Selected file:', file.name);
+      // Call the parent callback to pass the file up
+      if (onFileSelect) {
+        onFileSelect(file);
+      }
     } else {
       alert('Please select a valid image file');
     }

@@ -2,15 +2,77 @@
 
 import { useState, useRef } from 'react';
 
+// Helper functions for localStorage management
+const STORAGE_KEY = 'uploaded_files_history';
+
+const saveFileToStorage = (file) => {
+  try {
+    // Convert file to base64 for storage
+    const reader = new FileReader();
+    return new Promise((resolve) => {
+      reader.onload = () => {
+        const fileData = {
+          id: Date.now() + Math.random(), // Unique ID
+          name: file.name,
+          size: file.size,
+          type: file.type,
+          data: reader.result, // Base64 data
+          uploadedAt: new Date().toISOString(),
+          timestamp: Date.now()
+        };
+        
+        // Get existing files from localStorage
+        const existingFiles = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        
+        // Add new file to the beginning of the array
+        const updatedFiles = [fileData, ...existingFiles];
+        
+        // Keep only the last 10 files to prevent localStorage from getting too large
+        const limitedFiles = updatedFiles.slice(0, 10);
+        
+        // Save to localStorage
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(limitedFiles));
+        
+        resolve(fileData);
+      };
+      reader.readAsDataURL(file);
+    });
+  } catch (error) {
+    console.error('Error saving file to localStorage:', error);
+    return null;
+  }
+};
+
+const getFilesFromStorage = () => {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  } catch (error) {
+    console.error('Error retrieving files from localStorage:', error);
+    return [];
+  }
+};
+
 export default function UploadFile({ onFileSelect }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [isDragOver, setIsDragOver] = useState(false);
   const fileInputRef = useRef(null);
 
-  const handleFileSelect = (file) => {
+  const handleFileSelect = async (file) => {
     if (file && file.type.startsWith('image/')) {
       setSelectedFile(file);
       console.log('Selected file:', file.name);
+      
+      // Save file to localStorage with timestamp
+      try {
+        const savedFileData = await saveFileToStorage(file);
+        console.log('File saved to localStorage:', savedFileData);
+        
+        // Dispatch custom event to notify other components
+        window.dispatchEvent(new CustomEvent('fileUploaded', { detail: savedFileData }));
+      } catch (error) {
+        console.error('Failed to save file to localStorage:', error);
+      }
+      
       // Call the parent callback to pass the file up
       if (onFileSelect) {
         onFileSelect(file);
@@ -107,3 +169,6 @@ export default function UploadFile({ onFileSelect }) {
     </div>
   );
 }
+
+// Export helper functions for use in other components
+export { getFilesFromStorage, STORAGE_KEY };
